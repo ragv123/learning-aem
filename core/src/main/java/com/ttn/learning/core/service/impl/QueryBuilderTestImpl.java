@@ -44,4 +44,34 @@ public class QueryBuilderTestImpl implements QueryBuilderTest{
 		return list;
 	}
 
+	@Override
+	public List<String> getResultByCustomPredicate(ResourceResolver resolver) {
+		
+		QueryBuilder builder = resolver.adaptTo(QueryBuilder.class);
+		Map<String , String> queryMap = new HashMap<String, String>();
+		/**
+		 * replic.by=admin replic.since=2013-01-01T00:00:00.000+01:00
+		 * replic.action=Activate
+		 * 
+		 */
+		queryMap.put("path", "/content");
+		//queryMap.put("type", "cq:Page");
+		queryMap.put("customreplic.by", "admin");
+		queryMap.put("customreplic.since","2013-01-01T00:00:00.000+01:00");
+		queryMap.put("customreplic.action","Activate");
+		Query query = builder.createQuery(PredicateGroup.create(queryMap), resolver.adaptTo(Session.class));
+		SearchResult result = query.getResult();
+		List<String> list = new ArrayList<String>();
+		for(Hit hit : result.getHits()){
+			try {
+				list.add(hit.getResource().getPath());
+			} catch (RepositoryException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+
 }

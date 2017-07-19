@@ -7,4 +7,5 @@ import org.apache.sling.api.resource.ResourceResolver;
 public interface QueryBuilderTest {
 
 	List<String> getPathByTitle(ResourceResolver resolver, String searchText);
+	List<String> getResultByCustomPredicate(ResourceResolver resolver);
 }

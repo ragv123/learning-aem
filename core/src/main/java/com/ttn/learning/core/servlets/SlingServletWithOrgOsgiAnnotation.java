@@ -30,7 +30,7 @@ public class SlingServletWithOrgOsgiAnnotation extends SlingAllMethodsServlet{
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException, ServletException {
 		String searchText = request.getParameter("queryString");
 		ResourceResolver resolver = request.getResourceResolver();
-		List<String> list = queryBuilderTest.getPathByTitle(resolver, searchText);
+		List<String> list = queryBuilderTest.getResultByCustomPredicate(resolver);
 		response.getWriter().write(list.toString());
 	}
 
